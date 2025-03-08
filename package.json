@@ -1,0 +1,19 @@
+{
+  "name": "villehaven",
+  "version": "1.0.0",
+  "description": "A community-building game for Reddit",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "devvit dev",
+    "build": "devvit build",
+    "publish": "devvit publish"
+  },
+  "dependencies": {
+    "@devvit/public-api": "^0.10.15",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "typescript": "^5.0.0"
+  }
+}

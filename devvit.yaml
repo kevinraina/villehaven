@@ -1,0 +1,4 @@
+name: villehaven
+version: 0.0.1
+entityTypes:
+  - Post
