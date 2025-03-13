@@ -4,10 +4,171 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Villehaven</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEREQAAAAAAEAAAEAAAAAEAAAABAAAAEAAAAAAQAAAQAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAD8HwAA++8AAPvvAAD77wAA++8AAPvvAAD77wAA/B8AAP//AAD//wAA//8AAP//AAD//wAA">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="root"></div>
-  <script src="bundle.js"></script>
+  <div id="app">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen">
+      <div class="loading-container">
+        <div class="loading-logo">
+          <div class="loading-spinner"></div>
+          <h1>Villehaven</h1>
+        </div>
+        <div class="loading-text">Loading your village...</div>
+        <div class="loading-progress">
+          <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen hidden">
+      <div class="welcome-container">
+        <div class="welcome-header">
+          <h1 class="welcome-title">Welcome to Villehaven</h1>
+          <p class="welcome-subtitle">Build, grow, and thrive together!</p>
+        </div>
+        <div class="welcome-content">
+          <div class="welcome-description">
+            <h2>Your Adventure Awaits</h2>
+            <p>Join a thriving community where you can:</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-home"></i> Build and customize your dream house</li>
+              <li><i class="fas fa-tree"></i> Plant trees and grow crops</li>
+              <li><i class="fas fa-users"></i> Participate in community events</li>
+              <li><i class="fas fa-star"></i> Complete quests and earn rewards</li>
+            </ul>
+          </div>
+          <div class="community-progress">
+            <h2>Community Goals</h2>
+            <div id="global-goals"></div>
+            <div class="community-stats">
+              <div class="stat">
+                <span class="stat-value" id="player-count">0</span>
+                <span class="stat-label">Active Players</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value" id="top-player">-</span>
+                <span class="stat-label">Top Player</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="join-section">
+          <p>Ready to start your journey?</p>
+          <button id="join-button" class="join-button">
+            <i class="fas fa-play"></i>
+            Join Villehaven
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+      <!-- Navigation -->
+      <div class="navigation-bar">
+        <div class="game-title">
+          <h1>Villehaven</h1>
+          <div class="player-stats">
+            <span class="environment-points">
+              <i class="fas fa-leaf"></i>
+              <span id="env-points">0</span>
+            </span>
+            <span class="community-points">
+              <i class="fas fa-users"></i>
+              <span id="com-points">0</span>
+            </span>
+            <span class="personal-points">
+              <i class="fas fa-star"></i>
+              <span id="per-points">0</span>
+            </span>
+          </div>
+          <button id="settings-toggle" class="settings-toggle" title="Game Settings">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+        <div class="tabs">
+          <ul id="nav-tabs">
+            <li data-tab="house" class="active">
+              <i class="fas fa-home"></i>
+              <span class="tab-label">House</span>
+            </li>
+            <li data-tab="farm">
+              <i class="fas fa-tractor"></i>
+              <span class="tab-label">Farm</span>
+            </li>
+            <li data-tab="community">
+              <i class="fas fa-users"></i>
+              <span class="tab-label">Community</span>
+            </li>
+            <li data-tab="quests">
+              <i class="fas fa-scroll"></i>
+              <span class="tab-label">Quests</span>
+            </li>
+            <li data-tab="profile">
+              <i class="fas fa-user"></i>
+              <span class="tab-label">Profile</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Game Content -->
+      <div class="game-content">
+        <!-- House Tab -->
+        <div id="house-tab" class="tab-content">
+          <!-- House content will be dynamically added -->
+        </div>
+
+        <!-- Farm Tab -->
+        <div id="farm-tab" class="tab-content hidden">
+          <!-- Farm content will be dynamically added -->
+        </div>
+
+        <!-- Community Tab -->
+        <div id="community-tab" class="tab-content hidden">
+          <!-- Community content will be dynamically added -->
+        </div>
+
+        <!-- Quests Tab -->
+        <div id="quests-tab" class="tab-content hidden">
+          <!-- Quests content will be dynamically added -->
+        </div>
+
+        <!-- Profile Tab -->
+        <div id="profile-tab" class="tab-content hidden">
+          <!-- Profile content will be dynamically added -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Message and Error Containers -->
+    <div id="message-container" class="message hidden"></div>
+    <div id="error-container" class="error hidden"></div>
+    <div id="game-message" class="message hidden"></div>
+    <div id="game-error" class="error hidden"></div>
+
+    <!-- Achievement Popup Template -->
+    <template id="achievement-popup">
+      <div class="achievement-popup">
+        <div class="achievement-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+        <div class="achievement-content">
+          <h4 class="achievement-title"></h4>
+          <p class="achievement-description"></p>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
